@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Félix Zambrano · Fábulas de animales inconformistas</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Bitter:ital,wght@0,400;0,500;0,600;1,400&family=Caveat:wght@600;700&display=swap');
+
+:root{
+  --crema: #FBF4E3;
+  --crema-2: #FBF4E3;
+   --fondo: #3D7CA6;
+  --fondo-2: #2F6488;
+  --texto: #FBF4E3;
+  --texto-70: rgba(251,244,227,.75);
+  --tinta: #22314F;
+  --tinta-70: rgba(34,49,79,.7);
+  --coral: #F2673E;
+  --coral-dark:#D8502B;
+  --bosque: #3F7A5D;
+  --bosque-dark:#2E5C45;
+  --sol: #F4B942;
+  --rosa: #F7C9CB;
+  --radius: 22px;
+  --radius-sm: 12px;
+  --shadow: 0 10px 30px rgba(34,49,79,.12);
+  --maxw: 1120px;
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--fondo);
+  color:var(--tinta);
+  font-family:'Bitter', Georgia, serif;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,.display{
+  font-family:'Baloo 2', sans-serif;
+  font-weight:700;
+  line-height:1.1;
+  margin:0;
+  letter-spacing:.2px;
+}
+.accent-hand{
+  font-family:'Caveat', cursive;
+  font-weight:600;
+}
+a{color:inherit;}
+img,svg{max-width:100%;display:block;}
+.wrap{max-width:var(--maxw); margin:0 auto; padding:0 24px;}
+section{padding:96px 0;}
+.eyebrow{
+  font-family:'Caveat', cursive;
+  font-size:1.4rem;
+  color:var(--coral-dark);
+  display:inline-block;
+  margin-bottom:6px;
+  transform:rotate(-2deg);
+}
+::selection{background:var(--sol); color:var(--tinta);}
+:focus-visible{outline:3px solid var(--coral); outline-offset:3px; border-radius:4px;}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:sticky; top:0; z-index:50;
+  background:rgba(251,244,227,.88);
+  backdrop-filter:blur(6px);
+  border-bottom:1px solid rgba(34,49,79,.08);
+  transition:box-shadow .3s ease;
+}
+.nav.scrolled{box-shadow:0 4px 18px rgba(34,49,79,.08);}
+.nav-inner{
+  max-width:var(--maxw); margin:0 auto; padding:14px 24px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.brand{display:flex; align-items:center; gap:10px; font-family:'Baloo 2'; font-weight:700; font-size:1.25rem;}
+.brand-mark{width:34px;height:34px;flex:none;}
+.nav-links{display:flex; gap:28px; list-style:none; margin:0; padding:0; font-family:'Baloo 2'; font-weight:600; font-size:.95rem;}
+.nav-links a{text-decoration:none; padding:6px 2px; border-bottom:2px solid transparent; transition:border-color .2s ease, color .2s ease;}
+.nav-links a:hover{border-color:var(--coral); color:var(--coral-dark);}
+.nav-cta{
+  background:var(--coral); color:#fff; font-family:'Baloo 2'; font-weight:700;
+  padding:10px 18px; border-radius:999px; text-decoration:none; font-size:.9rem;
+  box-shadow:0 6px 16px rgba(242,103,62,.35);
+  transition:transform .15s ease, box-shadow .15s ease;
+  white-space:nowrap;
+}
+.nav-cta:hover{transform:translateY(-2px); box-shadow:0 10px 20px rgba(242,103,62,.4);}
+.nav-toggle{display:none; background:none; border:none; cursor:pointer; padding:6px;}
+.nav-toggle svg{width:26px;height:26px;}
+
+/* ---------- HERO ---------- */
+.hero{padding:64px 0 40px;}
+.hero-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:56px; align-items:start;}
+.hero h1{font-size:clamp(2.4rem, 4.4vw, 3.6rem); color:var(--tinta);}
+.hero h1 span{color:var(--coral);}
+.hero p.lead{font-size:1.15rem; color:var(--tinta-70); max-width:46ch; margin:22px 0 30px;}
+.btn-row{display:flex; gap:16px; flex-wrap:wrap;}
+.btn{
+  font-family:'Baloo 2'; font-weight:700; font-size:1rem;
+  padding:14px 26px; border-radius:999px; text-decoration:none;
+  display:inline-flex; align-items:center; gap:8px;
+  transition:transform .15s ease, box-shadow .15s ease;
+  border:2px solid transparent;
+}
+.btn-primary{background:var(--coral); color:#fff; box-shadow:0 8px 20px rgba(242,103,62,.35);}
+.btn-primary:hover{transform:translateY(-2px);}
+.btn-ghost{background:transparent; color:var(--tinta); border-color:var(--tinta);}
+.btn-ghost:hover{background:var(--texto); color:var(--fondo);}
+
+.hero-art{position:relative;}
+.hero-art img{width:100%; height:auto; object-fit:contain; border-radius:var(--radius);}
+
+.stat-strip{
+  display:flex; gap:0; margin-top:56px; border-top:1px solid rgba(34,49,79,.15); padding-top:28px;
+  flex-wrap:wrap;
+}
+.stat{flex:1; min-width:140px; padding-right:24px;}
+.stat b{font-family:'Baloo 2'; font-size:1.9rem; display:block; color:var(--bosque-dark);}
+.stat span{font-size:.85rem; color:var(--tinta-70);}
+
+/* ---------- BIOGRAFIA ---------- */
+.bio{background:var(--fondo-2); border-radius:40px; margin:0 16px;}
+.bio-grid{display:grid; grid-template-columns:.85fr 1.15fr; gap:56px; align-items:start;}
+.bio-portrait{
+  aspect-ratio:4/5; border-radius:var(--radius); overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.bio-portrait svg{width:100%; height:100%;}
+.bio-text h2{font-size:2.1rem; margin-bottom:18px;}
+.bio-text p{color:var(--tinta-70); margin:0 0 16px;}
+.bio-text p:last-of-type{margin-bottom:0;}
+
+.timeline{list-style:none; margin:32px 0 0; padding:0; border-left:3px solid var(--bosque); }
+.timeline li{position:relative; padding:0 0 26px 26px;}
+.timeline li:last-child{padding-bottom:0;}
+.timeline li::before{
+  content:'';
+  position:absolute; left:-9px; top:2px;
+  width:15px; height:15px; border-radius:50%;
+  background:var(--sol); border:3px solid var(--fondo-2);
+}
+.timeline b{font-family:'Baloo 2'; color:var(--bosque-dark); display:block; font-size:1rem;}
+.timeline span{color:var(--tinta-70); font-size:.95rem;}
+
+/* ---------- GALERIA ---------- */
+.gallery-head{text-align:center; max-width:640px; margin:0 auto 48px;}
+.gallery-head h2{font-size:2.1rem; margin:0 0 14px;}
+.gallery-head p{color:var(--tinta-70);}
+.gallery-grid{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+}
+.gallery-grid .card{
+  aspect-ratio:4/5;
+}
+.card{
+  position:relative; border-radius:var(--radius); overflow:hidden;
+  box-shadow:var(--shadow); background:var(--tinta); min-height:170px;
+  display:flex; align-items:flex-end;
+}
+.card svg{position:absolute; inset:0; width:100%; height:100%;}
+.card .tape{
+  position:absolute; top:-6px; right:22px; width:70px; height:26px;
+  background:rgba(247,201,203,.85); transform:rotate(4deg);
+  box-shadow:0 2px 4px rgba(0,0,0,.15);
+}
+.card figcaption{
+  position:relative; z-index:2; padding:16px 18px; color:#fff;
+  font-family:'Baloo 2'; font-weight:600; font-size:.95rem;
+  background:linear-gradient(0deg, rgba(0,0,0,.55), transparent);
+  width:100%;
+}
+
+/* ---------- CALENDARIO ---------- */
+.calendar-section{background:var(--tinta); color:var(--crema); border-radius:40px; margin:0 16px;}
+.calendar-section .eyebrow{color:var(--sol);}
+.calendar-section h2{color:#fff; font-size:2.1rem;}
+.calendar-section > .wrap > p.lead{color:rgba(251,244,227,.75); max-width:56ch; margin:16px 0 40px;}
+
+.cal-layout{display:grid; grid-template-columns:1.35fr 1fr; gap:40px; align-items:start;}
+
+.cal-card{
+  background:var(--crema); color:var(--tinta); border-radius:var(--radius);
+  padding:26px; box-shadow:var(--shadow);
+}
+.cal-nav{display:flex; align-items:center; justify-content:space-between; margin-bottom:18px;}
+.cal-nav button{
+  background:var(--rosa); border:none; width:36px; height:36px; border-radius:50%;
+  font-size:1.1rem; cursor:pointer; font-family:'Baloo 2'; font-weight:700; color:var(--tinta);
+  transition:background .2s ease;
+}
+.cal-nav button:hover{background:var(--sol);}
+.cal-nav .cal-month{font-family:'Baloo 2'; font-weight:700; font-size:1.15rem; text-transform:capitalize;}
+.cal-grid{display:grid; grid-template-columns:repeat(7,1fr); gap:6px;}
+.cal-dow{text-align:center; font-size:.75rem; color:var(--tinta-70); font-family:'Baloo 2'; font-weight:600; padding-bottom:6px;}
+.cal-day{
+  aspect-ratio:1; display:flex; align-items:center; justify-content:center;
+  border-radius:10px; font-family:'Baloo 2'; font-weight:600; font-size:.9rem;
+  cursor:pointer; border:2px solid transparent; background:rgba(63,122,93,.08);
+  position:relative; transition:transform .12s ease, background .15s ease;
+}
+.cal-day:hover{transform:translateY(-2px);}
+.cal-day.empty{visibility:hidden; cursor:default;}
+.cal-day.past{color:rgba(34,49,79,.3); background:transparent; cursor:not-allowed;}
+.cal-day.disponible{background:rgba(63,122,93,.14); border-color:rgba(63,122,93,.3);}
+.cal-day.disponible:hover{background:var(--bosque); color:#fff;}
+.cal-day.pendiente{background:var(--sol); color:var(--tinta); cursor:default;}
+.cal-day.confirmado{background:var(--coral); color:#fff; cursor:default;}
+.cal-day .stamp{
+  position:absolute; inset:-6px; border-radius:10px; pointer-events:none;
+  border:3px solid var(--coral-dark); opacity:0; transform:scale(1.6) rotate(-14deg);
+}
+.cal-day.just-stamped .stamp{animation:stampIn .55s cubic-bezier(.2,1.4,.4,1) forwards;}
+@keyframes stampIn{ 0%{opacity:0; transform:scale(2.2) rotate(-20deg);} 60%{opacity:1; transform:scale(.92) rotate(-8deg);} 100%{opacity:1; transform:scale(1) rotate(-6deg);} }
+
+.legend{display:flex; gap:18px; flex-wrap:wrap; margin-top:20px; font-size:.82rem;}
+.legend span{display:flex; align-items:center; gap:6px;}
+.legend i{width:13px; height:13px; border-radius:4px; display:inline-block;}
+
+.cal-info h3{font-family:'Baloo 2'; color:#fff; font-size:1.3rem; margin-bottom:14px;}
+.cal-info ol{padding-left:20px; margin:0 0 26px; color:rgba(251,244,227,.85); font-size:.95rem;}
+.cal-info li{margin-bottom:10px;}
+.cal-layout{display:grid; grid-template-columns:1.35fr 1fr; gap:40px; align-items:stretch;}
+.cal-info{display:flex; flex-direction:column; height:100%;}
+.cal-phone{margin-top:auto; padding-top:24px;}
+.cal-phone h3{margin-bottom:10px;}
+.cal-phone p{color:var(--texto-70); font-size:.95rem;}
+.cal-phone a{color:var(--sol); font-weight:600;}
+.cal-note{
+  background:rgba(244,185,66,.12); border:1px dashed var(--sol); border-radius:var(--radius-sm);
+  padding:16px 18px; font-size:.88rem; color:rgba(251,244,227,.9);
+}
+
+/* ---------- MODAL ---------- */
+.modal-overlay{
+  position:fixed; inset:0; background:rgba(34,49,79,.55); backdrop-filter:blur(2px);
+  display:none; align-items:center; justify-content:center; z-index:100; padding:20px;
+}
+.modal-overlay.open{display:flex;}
+.modal{
+  background:var(--crema); border-radius:var(--radius); max-width:480px; width:100%;
+  padding:32px; box-shadow:0 24px 60px rgba(0,0,0,.35); max-height:88vh; overflow-y:auto;
+  position:relative;
+}
+.modal h3{font-family:'Baloo 2'; font-size:1.4rem; margin-bottom:4px;}
+.modal .modal-date{color:var(--coral-dark); font-family:'Caveat'; font-size:1.3rem; margin-bottom:18px; display:block;}
+.modal-close{
+  position:absolute; top:16px; right:16px; background:none; border:none; cursor:pointer;
+  font-size:1.3rem; color:var(--tinta-70); line-height:1;
+}
+.field{margin-bottom:16px;}
+.field label{display:block; font-family:'Baloo 2'; font-weight:600; font-size:.85rem; margin-bottom:6px;}
+.field input, .field select, .field textarea{
+  width:100%; padding:11px 13px; border-radius:10px; border:1.5px solid rgba(34,49,79,.2);
+  font-family:'Bitter'; font-size:.95rem; background:#fff; color:var(--tinta);
+}
+.field textarea{resize:vertical; min-height:70px;}
+.field-row{display:grid; grid-template-columns:1fr 1fr; gap:14px;}
+.modal-submit{width:100%; justify-content:center; margin-top:6px; border:none; cursor:pointer;}
+.confirm-box{text-align:center; padding:10px 0;}
+.confirm-stamp{
+  width:110px; height:110px; margin:0 auto 18px;
+  animation:popStamp .5s cubic-bezier(.2,1.5,.4,1);
+}
+@keyframes popStamp{ 0%{transform:scale(0) rotate(-30deg); opacity:0;} 70%{transform:scale(1.15) rotate(-8deg); opacity:1;} 100%{transform:scale(1) rotate(-6deg);} }
+
+/* ---------- CONTACTO ---------- */
+.contact-card{
+  max-width:560px; margin:0 auto; background:var(--crema); color:var(--tinta);
+  border-radius:var(--radius); padding:40px; box-shadow:var(--shadow);
+}
+.contact-phone{
+  text-align:center; font-size:.95rem; color:var(--tinta-70);
+  margin:0 0 26px; padding-bottom:22px; border-bottom:1px solid rgba(34,49,79,.12);
+}
+.contact-phone a{color:var(--coral-dark); font-weight:600;}
+
+/* ---------- FOOTER ---------- */
+footer{padding:60px 0 40px; text-align:center;}
+footer .brand{justify-content:center; margin-bottom:10px;}
+footer p{color:var(--tinta-70); font-size:.9rem; margin:4px 0;}
+.footer-links{display:flex; gap:20px; justify-content:center; margin:18px 0; font-family:'Baloo 2'; font-weight:600; font-size:.9rem;}
+.footer-links a{text-decoration:none;}
+.footer-links a:hover{color:var(--coral-dark);}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:860px){
+  section{padding:64px 0;}
+  .hero-grid, .bio-grid, .cal-layout{grid-template-columns:1fr;}
+  .hero-art{order:-1;}
+  .nav-links{position:fixed; top:64px; left:0; right:0; background:var(--crema); flex-direction:column;
+    padding:20px 24px; gap:14px; border-bottom:1px solid rgba(34,49,79,.1); display:none;}
+  .nav-links.open{display:flex;}
+  .nav-toggle{display:block;}
+  .gallery-grid{grid-template-columns:1fr;}
+  .field-row{grid-template-columns:1fr;}
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms !important; transition-duration:.001ms !important;}
+  html{scroll-behavior:auto;}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-inner">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#F2673E"/><path d="M12 14c4-3 12-3 16 0v13c-4-2-12-2-16 0z" fill="#FBF4E3"/><path d="M20 14v13" stroke="#F2673E" stroke-width="1.5"/></svg>
+      Félix Zambrano
+    </div>
+    <button class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#22314F" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#biografia">Biografía</a></li>
+      <li><a href="#galeria">Cuentacuentos</a></li>
+      <li><a href="#calendario">Calendario</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a class="nav-cta" href="#calendario">Reservar fecha</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">autor e ilustrador de literatura infantil</span>
+      <h1>Historias que se leen<br>y <span>cuentos que se viven</span></h1>
+      <p class="lead">Félix Zambrano es el autor de <em>«Fábulas de animales inconformistas»</em> y lleva sus sesiones de cuentacuentos a colegios de toda España, con talleres pensados para despertar el gusto por la lectura desde infantil hasta 6º de primaria.</p>
+      <div class="btn-row">
+        <a class="btn btn-primary" href="#calendario">📅 Reservar cuentacuentos</a>
+        <a class="btn btn-ghost" href="#biografia">Conocer al autor</a>
+      </div>
+      <div class="stat-strip">
+        <div class="stat"><b>120+</b><span>colegios visitados</span></div>
+        <div class="stat"><b>3</b><span>libros publicados</span></div>
+        <div class="stat"><b>15.000+</b><span>niñas y niños</span></div>
+      </div>
+    </div>
+    <div class="hero-art">
+      <img src="FabulasPortada.jpeg" alt="Portada de Fabulas">
+    </div>
+  </div>
+</header>
+
+<!-- BIOGRAFIA -->
+<section id="biografia" class="bio">
+  <div class="wrap bio-grid">
+    <div class="bio-portrait">
+      <img src="FelixPerfil.jpeg" alt="Foto de Biografia">
+    </div>
+    <div class="bio-text">
+      <span class="eyebrow">Sobre el autor</span>
+      <h2>Félix Zambrano</h2>
+      <p>Félix nació en Almendralejo y estudió Magisterio antes de dedicarse por completo al literatura infantil. Escribe historias que nacen de las preguntas de sus propios alumnos: por qué los mapas se acaban, qué hay detrás del último cajón de la abuela, si los libros sueñan cuando están cerrados.</p>
+      <p>En 2019 publicó su primer álbum ilustrado y, desde entonces, combina la escritura con un programa propio de cuentacuentos escolares: sesiones interactivas de 45 a 60 minutos, adaptadas por edad, que terminan siempre con un taller breve de creación de personajes.</p>
+      <p>Su último libro, <em>«Fábulas de animales inconformistas»</em>, es el hilo conductor de la gira de colegios 2026–2027.</p>
+      <ul class="timeline">
+        <li><b>2019 · Primer libro</b><span>Publica «El Cajón de la Abuela», su ópera prima.</span></li>
+        <li><b>2021 · Reconocimiento</b><span>Finalista al Premio Nacional de Literatura Infantil.</span></li>
+        <li><b>2022 · Nace el programa escolar</b><span>Primeras sesiones de cuentacuentos en colegios de Extremadura.</span></li>
+        <li><b>2024 · Gira nacional</b><span>Supera los 100 colegios visitados en toda España.</span></li>
+        <li><b>2026 · Nuevo libro</b><span>Publica «Fábulas de animales inconformistas» y abre calendario de visitas.</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- GALERIA -->
+<section id="galeria">
+  <div class="wrap">
+    <div class="gallery-head">
+      <span class="eyebrow">Momentos de la gira</span>
+      <h2>Cuentacuentos en directo</h2>
+      <p>Una muestra de las sesiones realizadas en colegios. Sustituye estas ilustraciones por fotografías reales de tus visitas cuando las tengas disponibles.</p>
+    </div>
+    <div class="gallery-grid">
+      <figure class="card">
+  <img src="FalubasContraportada.jpeg" alt="Contraportada del libro" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+  <div class="tape"></div>
+  <figcaption>Falubas de animales inconformistas</figcaption>
+</figure>
+    
+      <figure class="card">
+  <img src="FabulasCuentacuento.jpeg" alt="Cuentacuento del libro" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+  <div class="tape"></div>
+  <figcaption>Cuentacuentos</figcaption>
+</figure>
+      <figure class="card">
+  <img src="FabulasFirma.jpeg" alt="Firma del libro" style="position:absolute; inset:0; width:100%; height:100%; object-fit:cover;">
+  <div class="tape"></div>
+  <figcaption>Firma de libros</figcaption>
+</figure>
+    </div>
+  </div>
+</section>
+
+<!-- CALENDARIO -->
+<section id="calendario" class="calendar-section">
+  <div class="wrap">
+    <span class="eyebrow">Para colegios</span>
+    <h2>Reserva la visita de Félix a tu centro</h2>
+    <p class="lead">Consulta la disponibilidad y solicita una fecha para el cuentacuentos y el taller. Cada solicitud queda como <strong>pendiente de confirmación</strong> hasta que Félix la revisa y os escribe por correo.</p>
+    
+    <div class="cal-layout">
+      <div class="cal-card">
+        <div class="cal-nav">
+          <button id="prevMonth" aria-label="Mes anterior">‹</button>
+          <span class="cal-month" id="calMonthLabel"></span>
+          <button id="nextMonth" aria-label="Mes siguiente">›</button>
+        </div>
+        <div class="cal-grid" id="calGrid"></div>
+        <div class="legend">
+          <span><i style="background:rgba(63,122,93,.14); border:1px solid rgba(63,122,93,.4);"></i>Disponible</span>
+          <span><i style="background:var(--sol);"></i>Pendiente de confirmación</span>
+          <span><i style="background:var(--coral);"></i>Confirmada</span>
+        </div>
+      </div>
+      <div class="cal-info">
+  <h3>Cómo funciona</h3>
+  <ol>
+    <li>Elige un día <strong>disponible</strong> en el calendario.</li>
+    <li>Rellena los datos de tu colegio y el tramo horario preferido.</li>
+    <li>La fecha pasa a <strong>pendiente</strong> y Félix la confirma por correo en 48–72h.</li>
+  </ol>
+  <div class="cal-note">📌 Nota de diseño: las reservas se guardan para que cualquier colegio que visite esta web vea el calendario actualizado en tiempo real. Si el navegador no admite este guardado, el calendario sigue funcionando durante la sesión.</div>
+
+  <div class="cal-phone">
+    <h3>¿Prefieres gestionarlo por teléfono?</h3>
+    <p>Llama al <a href="tel:+34600000000">+34 600 000 000</a></p>
+  </div>
+</div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <div class="wrap">
+    <div class="gallery-head">
+      <span class="eyebrow">¿Tienes alguna pregunta?</span>
+      <h2>Contacto</h2>
+    </div>
+    <div class="contact-card">
+      <p class="contact-phone">¿Prefieres llamar? <a href="tel:+34600000000">+34 600 000 000</a></p>
+      <form id="contactForm">
+        
+          <div class="field"><label for="c-nombre">Nombre</label><input id="c-nombre" required></div>
+          <div class="field"><label for="c-email">Email</label><input id="c-email" type="email" required></div>
+        
+        <div class="field"><label for="c-mensaje">Mensaje</label><textarea id="c-mensaje" required></textarea></div>
+        <button type="submit" class="btn btn-primary modal-submit">Enviar mensaje</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer id="contacto">
+  <div class="wrap">
+    <div class="brand">
+      <svg class="brand-mark" viewBox="0 0 40 40"><circle cx="20" cy="20" r="19" fill="#F2673E"/><path d="M12 14c4-3 12-3 16 0v13c-4-2-12-2-16 0z" fill="#FBF4E3"/></svg>
+      Félix Zambrano
+    </div>
+    <a href="tel:+34600000000">📞 +34 600 000 000</a>
+    <p>autor de «Fábulas de animales inconformistas» · Cuentacuentos y talleres para colegios</p>
+    <div class="footer-links">
+      <a href="#biografia">Biografía</a>
+      <a href="#galeria">Galería</a>
+      <a href="#calendario">Reservar</a>
+      <a href="mailto:hola@FélixZambrano-libros.com">Contacto</a>
+    </div>
+    <p>© 2026 Félix Zambrano</p>
+  </div>
+</footer>
+
+<!-- MODAL RESERVA -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modalContent">
+    <button class="modal-close" id="modalClose" aria-label="Cerrar">✕</button>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+(function(){
+  // ---- Nav scroll + mobile toggle ----
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', ()=> nav.classList.toggle('scrolled', window.scrollY > 8));
+  const navToggle = document.getElementById('navToggle');
+  const navLinks = document.getElementById('navLinks');
+  navToggle.addEventListener('click', ()=>{
+    const open = navLinks.classList.toggle('open');
+    navToggle.setAttribute('aria-expanded', open ? 'true':'false');
+  });
+  navLinks.querySelectorAll('a').forEach(a=> a.addEventListener('click', ()=> navLinks.classList.remove('open')));
+
+  // ---- Calendar state ----
+  const MESES = ['enero','febrero','marzo','abril','mayo','junio','julio','agosto','septiembre','octubre','noviembre','diciembre'];
+  const DIAS = ['L','M','X','J','V','S','D'];
+  const STORAGE_KEY = 'bookings-Félix-Zambrano';
+  let bookings = {}; // { 'YYYY-M-D': {estado:'pendiente'|'confirmado', colegio, contacto, email, telefono, alumnos, franja, mensaje} }
+  const today = new Date();
+  let viewYear = today.getFullYear();
+  let viewMonth = today.getMonth();
+
+  function dateKey(y,m,d){ return y+'-'+m+'-'+d; }
+
+  async function loadBookings(){
+    try{
+      const res = await window.storage.get(STORAGE_KEY, true);
+      if(res && res.value){ bookings = JSON.parse(res.value); }
+    }catch(e){
+      // No hay datos guardados todavía o storage no disponible: seguimos con demo local
+      bookings = {};
+      const d1 = new Date(viewYear, viewMonth, Math.min(9, 27));
+      const d2 = new Date(viewYear, viewMonth, Math.min(17, 27));
+      bookings[dateKey(d1.getFullYear(), d1.getMonth(), d1.getDate())] = {estado:'confirmado', colegio:'CEIP Los Álamos'};
+      bookings[dateKey(d2.getFullYear(), d2.getMonth(), d2.getDate())] = {estado:'pendiente', colegio:'Colegio Santa Marta'};
+    }
+    renderCalendar();
+  }
+
+  async function saveBookings(){
+    try{
+      await window.storage.set(STORAGE_KEY, JSON.stringify(bookings), true);
+    }catch(e){ /* Guardado no disponible: la reserva queda solo en esta sesión */ }
+  }
+
+  function renderCalendar(){
+    document.getElementById('calMonthLabel').textContent = MESES[viewMonth] + ' ' + viewYear;
+    const grid = document.getElementById('calGrid');
+    grid.innerHTML = '';
+    DIAS.forEach(d=>{
+      const el = document.createElement('div');
+      el.className='cal-dow'; el.textContent=d;
+      grid.appendChild(el);
+    });
+    const firstDay = new Date(viewYear, viewMonth, 1);
+    let startOffset = firstDay.getDay() - 1; // lunes = 0
+    if(startOffset < 0) startOffset = 6;
+    const daysInMonth = new Date(viewYear, viewMonth+1, 0).getDate();
+
+    for(let i=0;i<startOffset;i++){
+      const empty = document.createElement('div');
+      empty.className='cal-day empty';
+      grid.appendChild(empty);
+    }
+
+    for(let d=1; d<=daysInMonth; d++){
+      const cell = document.createElement('div');
+      cell.className='cal-day';
+      cell.innerHTML = d + '<span class="stamp"></span>';
+      const cellDate = new Date(viewYear, viewMonth, d);
+      const isPast = cellDate < new Date(today.getFullYear(), today.getMonth(), today.getDate());
+      const key = dateKey(viewYear, viewMonth, d);
+      const booking = bookings[key];
+      const isWeekend = cellDate.getDay()===0 || cellDate.getDay()===6;
+
+      if(isPast || isWeekend){
+        cell.classList.add('past');
+      } else if(booking){
+        cell.classList.add(booking.estado);
+        cell.title = booking.colegio ? ('Reservado: ' + booking.colegio) : 'Reservado';
+      } else {
+        cell.classList.add('disponible');
+        cell.title = 'Disponible — clic para solicitar esta fecha';
+        cell.addEventListener('click', ()=> openBookingForm(viewYear, viewMonth, d));
+      }
+      grid.appendChild(cell);
+    }
+  }
+
+  document.getElementById('prevMonth').addEventListener('click', ()=>{
+    viewMonth--; if(viewMonth<0){viewMonth=11; viewYear--;}
+    renderCalendar();
+  });
+  document.getElementById('nextMonth').addEventListener('click', ()=>{
+    viewMonth++; if(viewMonth>11){viewMonth=0; viewYear++;}
+    renderCalendar();
+  });
+
+  // ---- Modal ----
+  const overlay = document.getElementById('modalOverlay');
+  const modalBody = document.getElementById('modalBody');
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  overlay.addEventListener('click', (e)=>{ if(e.target===overlay) closeModal(); });
+  document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+
+  function closeModal(){ overlay.classList.remove('open'); }
+
+  function openBookingForm(y,m,d){
+    const fecha = new Date(y,m,d);
+    const fechaTexto = fecha.toLocaleDateString('es-ES', {weekday:'long', day:'numeric', month:'long', year:'numeric'});
+    modalBody.innerHTML = `
+      <h3>Solicitar esta fecha</h3>
+      <span class="modal-date">${fechaTexto}</span>
+      <form id="bookingForm">
+        <div class="field"><label for="colegio">Nombre del colegio</label><input id="colegio" required></div>
+        <div class="field-row">
+          <div class="field"><label for="contacto">Persona de contacto</label><input id="contacto" required></div>
+          <div class="field"><label for="telefono">Teléfono</label><input id="telefono" type="tel" required></div>
+        </div>
+        <div class="field"><label for="email">Correo electrónico</label><input id="email" type="email" required></div>
+        <div class="field-row">
+          <div class="field"><label for="alumnos">Nº aprox. de alumnos</label><input id="alumnos" type="number" min="1" required></div>
+          <div class="field"><label for="franja">Franja horaria</label>
+            <select id="franja"><option>Mañana</option><option>Tarde</option><option>A convenir</option></select>
+          </div>
+        </div>
+        <div class="field"><label for="mensaje">Mensaje (opcional)</label><textarea id="mensaje" placeholder="Curso, número de grupos, algo que debamos saber..."></textarea></div>
+        <button type="submit" class="btn btn-primary modal-submit">Enviar solicitud de reserva</button>
+      </form>
+    `;
+    overlay.classList.add('open');
+    document.getElementById('bookingForm').addEventListener('submit', (e)=>{
+      e.preventDefault();
+      const data = {
+        estado:'pendiente',
+        colegio: document.getElementById('colegio').value,
+        contacto: document.getElementById('contacto').value,
+        telefono: document.getElementById('telefono').value,
+        email: document.getElementById('email').value,
+        alumnos: document.getElementById('alumnos').value,
+        franja: document.getElementById('franja').value,
+        mensaje: document.getElementById('mensaje').value
+      };
+      bookings[dateKey(y,m,d)] = data;
+      saveBookings();
+      renderCalendar();
+      showConfirmation(fechaTexto, data.colegio);
+    });
+  }
+
+  function showConfirmation(fechaTexto, colegio){
+    modalBody.innerHTML = `
+      <div class="confirm-box">
+        <svg class="confirm-stamp" viewBox="0 0 120 120"><circle cx="60" cy="60" r="52" fill="none" stroke="#F2673E" stroke-width="6"/><circle cx="60" cy="60" r="40" fill="none" stroke="#F2673E" stroke-width="2"/><text x="60" y="56" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="700" font-size="15" fill="#F2673E">SOLICITADO</text><text x="60" y="74" text-anchor="middle" font-family="Baloo 2, sans-serif" font-weight="600" font-size="11" fill="#F2673E">pendiente</text></svg>
+        <h3>¡Solicitud enviada!</h3>
+        <p style="color:var(--tinta-70)">Hemos guardado la solicitud de <strong>${colegio}</strong> para el <strong>${fechaTexto}</strong>. Félix la confirmará por correo en las próximas 48–72 horas.</p>
+        <button class="btn btn-ghost" style="margin-top:10px;" onclick="document.getElementById('modalOverlay').classList.remove('open')">Cerrar</button>
+      </div>
+    `;
+  }
+
+  loadBookings();
+})();
+</script>
+
+</body>
+</html>
