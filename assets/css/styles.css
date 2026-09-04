@@ -655,7 +655,14 @@ h3 {
     flex: 0 1 15rem;
     width: min(100%, 15rem);
     max-width: 100%;
-    margin: 0
+    margin: 0;
+    padding: .75rem;
+    overflow: hidden;
+    background: var(--cream-2);
+    border: 1px solid rgba(32, 48, 71, .12);
+    border-radius: 1rem;
+    box-shadow: 0 6px 16px rgba(32, 48, 71, .06);
+    isolation: isolate
 }
 
 .neae-visual[hidden] {
@@ -667,7 +674,8 @@ h3 {
     width: 100%;
     height: auto;
     object-fit: contain;
-    object-position: center top
+    object-position: center top;
+    mix-blend-mode: multiply
 }
 
 .gallery {
