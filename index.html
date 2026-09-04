@@ -160,6 +160,17 @@
       </div>
     </section>
 
+    <section class="section upcoming-section" id="proximas-visitas" hidden>
+      <div class="container">
+        <header class="section-heading upcoming-section__heading">
+          <p class="eyebrow">Agenda confirmada</p>
+          <h2>Próximas visitas</h2>
+          <p>Comparto aquí las visitas que ya están confirmadas.</p>
+        </header>
+        <div class="upcoming-visits" id="upcomingVisits"></div>
+      </div>
+    </section>
+
     <section class="section section--blue" id="calendario">
       <div class="container">
         <header class="calendar-intro">
@@ -176,6 +187,10 @@
                 <button id="nextMonth" type="button" aria-label="Mostrar mes siguiente">›</button>
               </div>
               <div class="calendar-grid" id="calendarGrid"></div>
+              <ul class="calendar-legend" aria-label="Leyenda del calendario">
+                <li><span class="calendar-legend__swatch calendar-legend__swatch--available" aria-hidden="true"></span>Fecha seleccionable</li>
+                <li><span class="calendar-legend__swatch calendar-legend__swatch--confirmed" aria-hidden="true"></span>Visita confirmada</li>
+              </ul>
               <p class="calendar-status" id="calendarStatus" role="status" aria-live="polite">La fecha seleccionada es una preferencia. Félix confirmará posteriormente su disponibilidad.</p>
             </div>
             <aside class="booking-info">

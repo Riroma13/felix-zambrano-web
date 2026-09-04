@@ -1894,3 +1894,209 @@ body {
     transform: none;
   }
 }
+
+/* Confirmed visits and public agenda */
+.calendar-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem 1.1rem;
+  margin: 1rem 0 0;
+  padding: 0;
+  color: var(--ink-soft);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: .78rem;
+  list-style: none;
+}
+
+.calendar-legend li {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.calendar-legend__swatch {
+  width: .78rem;
+  height: .78rem;
+  flex: 0 0 auto;
+  border: 1px solid transparent;
+  border-radius: .25rem;
+}
+
+.calendar-legend__swatch--available {
+  border-color: rgba(32, 48, 71, .18);
+  background: rgba(32, 48, 71, .06);
+}
+
+.calendar-legend__swatch--confirmed {
+  border-color: var(--coral);
+  background: rgba(232, 95, 61, .14);
+}
+
+.calendar-card .calendar-day.is-confirmed {
+  border-color: var(--coral);
+  background: rgba(232, 95, 61, .14);
+  color: var(--coral-dark);
+  cursor: not-allowed;
+  opacity: 1;
+  box-shadow: inset 0 0 0 1px rgba(232, 95, 61, .12);
+  font-weight: 800;
+}
+
+.upcoming-section[hidden] {
+  display: none;
+}
+
+.upcoming-section__heading {
+  max-width: 680px;
+  margin-bottom: 2rem;
+  text-align: left;
+}
+
+.upcoming-section__heading > p:last-child {
+  max-width: 50ch;
+  margin-bottom: 0;
+  color: var(--ink-soft);
+}
+
+.upcoming-visits {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.upcoming-card {
+  min-width: 0;
+  padding: 1.35rem 1.45rem;
+  border: 1px solid rgba(32, 48, 71, .12);
+  border-top: .35rem solid var(--gold);
+  border-radius: var(--radius-sm);
+  background: #fffdf8;
+  box-shadow: var(--shadow-sm);
+}
+
+.upcoming-card--featured {
+  position: relative;
+  overflow: hidden;
+  border-color: rgba(201, 71, 40, .2);
+  border-top-color: var(--coral);
+  background:
+    linear-gradient(135deg, rgba(241, 187, 74, .18), rgba(244, 234, 212, .72) 58%, var(--cream-2));
+}
+
+.upcoming-card--featured::before,
+.upcoming-card--featured::after {
+  content: "";
+  position: absolute;
+  width: 3.6rem;
+  height: 1.45rem;
+  border: 1px solid rgba(201, 71, 40, .14);
+  border-radius: 100% 0 100% 0;
+  background:
+    linear-gradient(135deg, transparent 47%, rgba(201, 71, 40, .12) 48%, rgba(201, 71, 40, .12) 52%, transparent 53%),
+    rgba(241, 187, 74, .1);
+  pointer-events: none;
+}
+
+.upcoming-card--featured::before {
+  top: 1rem;
+  right: -.85rem;
+  transform: rotate(28deg);
+}
+
+.upcoming-card--featured::after {
+  right: 1rem;
+  bottom: -.75rem;
+  transform: rotate(-42deg) scale(.72);
+}
+
+.upcoming-card--featured > * {
+  position: relative;
+  z-index: 1;
+}
+
+.upcoming-card__date + .upcoming-card__type {
+  margin-top: .65rem;
+}
+
+.upcoming-card__title {
+  margin: .55rem 0 .7rem;
+  color: var(--blue-dark);
+  font-size: clamp(1.5rem, 2.3vw, 2rem);
+}
+
+.upcoming-card__description {
+  margin: .9rem 0 0;
+  color: var(--ink-soft);
+}
+
+.event-logos {
+  display: none;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .65rem;
+  margin-top: 1.15rem;
+}
+
+.event-logos:has(.event-logo:not([hidden])) {
+  display: flex;
+}
+
+.event-logo {
+  display: block;
+  width: 5.5rem;
+  height: 2.4rem;
+  flex: 0 1 5.5rem;
+  object-fit: contain;
+  object-position: center;
+}
+
+.event-logo[hidden] {
+  display: none;
+}
+
+.upcoming-card__date {
+  display: block;
+  color: var(--blue-dark);
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-size: .92rem;
+  font-weight: 800;
+  text-transform: capitalize;
+}
+
+.upcoming-card__city {
+  margin: .65rem 0 .15rem;
+  font-size: 1.35rem;
+}
+
+.upcoming-card__type {
+  margin: 0;
+  color: var(--ink-soft);
+}
+
+@media (max-width: 900px) {
+  .upcoming-visits {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .calendar-legend {
+    gap: .55rem .85rem;
+  }
+
+  .upcoming-section {
+    padding: 3.75rem 0;
+  }
+
+  .upcoming-section__heading {
+    margin-bottom: 1.75rem;
+  }
+
+  .upcoming-visits {
+    grid-template-columns: 1fr;
+  }
+
+  .upcoming-card {
+    padding: 1.15rem 1.2rem;
+  }
+}

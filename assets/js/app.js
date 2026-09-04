@@ -3,6 +3,24 @@
   const $ = (selector, root = document) => root.querySelector(selector);
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const weekdays = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
+  const confirmedEvents = [
+    { date: "2026-10-13", city: "", type: "Visita confirmada" },
+    { date: "2026-10-14", city: "", type: "Visita confirmada" },
+    { date: "2026-10-15", city: "", type: "Visita confirmada" },
+    { date: "2026-10-16", city: "", type: "Visita confirmada" },
+    { date: "2026-12-04", city: "", type: "Visita confirmada" },
+    { date: "2026-12-07", city: "", type: "Visita confirmada" },
+    { date: "2026-12-08", city: "", type: "Visita confirmada" },
+    { date: "2027-04-26", city: "", type: "Visita confirmada" },
+    {
+      date: "2027-10-01",
+      city: "Almendralejo",
+      type: "Encuentro literario",
+      title: "Otoño Literario",
+      description: "Félix Zambrano participará en las actividades del Otoño Literario organizadas por la Biblioteca Marcos Suárez de Almendralejo.",
+      featured: true
+    }
+  ];
   const today = new Date();
   today.setHours(0, 0, 0, 0);
   let viewDate = new Date(today.getFullYear(), today.getMonth(), 1);
@@ -14,6 +32,8 @@
   const navToggleLabel = $('.nav__toggle .sr-only');
   const navMenu = $('#navMenu');
   const grid = $('#calendarGrid');
+  const upcomingSection = $('#proximas-visitas');
+  const upcomingVisits = $('#upcomingVisits');
   const label = $('#calendarLabel');
   const calendarStatus = $('#calendarStatus');
   const preferredDate = $('#preferredDate');
@@ -23,6 +43,7 @@
   const contactStatus = $('#contactStatus');
   const contactSubmit = $('#contactSubmit');
   const preferenceMessage = 'La fecha seleccionada es una preferencia. Félix confirmará posteriormente su disponibilidad.';
+  const confirmedDateMessage = 'La fecha indicada ya tiene una visita confirmada. Elige otra fecha.';
 
   window.addEventListener('scroll', () => header.classList.toggle('is-scrolled', window.scrollY > 10), { passive: true });
   navToggle.addEventListener('click', () => {
@@ -56,8 +77,91 @@
       : null;
   }
 
+  function confirmedEventFor(value) {
+    if (!dateForKey(value)) return null;
+    return confirmedEvents.find(event => event && event.date === value) || null;
+  }
+
   function formatDate(date) {
     return date.toLocaleDateString('es-ES', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function isValidConfirmedEvent(event) {
+    return Boolean(
+      event
+      && typeof event.date === 'string'
+      && dateForKey(event.date)
+      && typeof event.city === 'string'
+      && typeof event.type === 'string'
+      && event.type.trim()
+    );
+  }
+
+  function renderUpcomingVisits() {
+    const futureEvents = confirmedEvents
+      .filter(isValidConfirmedEvent)
+      .map(event => ({ event, date: dateForKey(event.date) }))
+      .filter(item => item.date && item.date > today)
+      .sort((first, second) => first.date - second.date);
+
+    upcomingSection.hidden = true;
+    upcomingVisits.replaceChildren();
+    if (!futureEvents.length) return;
+
+    futureEvents.forEach(({ event, date }) => {
+      const card = document.createElement('article');
+      const isFeatured = event.featured === true;
+      card.className = isFeatured ? 'upcoming-card upcoming-card--featured' : 'upcoming-card';
+
+      const dateLabel = document.createElement('time');
+      dateLabel.className = 'upcoming-card__date';
+      dateLabel.dateTime = event.date;
+      dateLabel.textContent = formatDate(date);
+      card.append(dateLabel);
+
+      if (isFeatured && typeof event.title === 'string' && event.title.trim()) {
+        const title = document.createElement('h3');
+        title.className = 'upcoming-card__title';
+        title.textContent = event.title.trim();
+        card.append(title);
+      }
+
+      if (event.city.trim()) {
+        const locality = document.createElement('h3');
+        locality.className = 'upcoming-card__city';
+        locality.textContent = event.city.trim();
+        card.append(locality);
+      }
+
+      const activity = document.createElement('p');
+      activity.className = 'upcoming-card__type';
+      activity.textContent = event.type.trim();
+      card.append(activity);
+
+      if (isFeatured && typeof event.description === 'string' && event.description.trim()) {
+        const description = document.createElement('p');
+        description.className = 'upcoming-card__description';
+        description.textContent = event.description.trim();
+        card.append(description);
+      }
+
+      if (isFeatured) {
+        const logos = document.createElement('div');
+        logos.className = 'event-logos';
+        ['event-logo--primary', 'event-logo--secondary'].forEach(slotClass => {
+          const logo = document.createElement('img');
+          logo.className = `event-logo ${slotClass}`;
+          logo.alt = '';
+          logo.hidden = true;
+          logos.append(logo);
+        });
+        card.append(logos);
+      }
+
+      upcomingVisits.append(card);
+    });
+
+    upcomingSection.hidden = false;
   }
 
   function updateCalendarStatus() {
@@ -70,6 +174,16 @@
       : preferenceMessage;
   }
 
+  function rejectConfirmedPreferredDate() {
+    selectedPreferredDate = '';
+    preferredDate.value = '';
+    preferredDate.setCustomValidity(confirmedDateMessage);
+    preferredDate.setAttribute('aria-invalid', 'true');
+    updateCalendarStatus();
+    preferredDateHelp.textContent = confirmedDateMessage;
+    renderCalendar();
+  }
+
   function scrollToFormOnMobile() {
     if (!window.matchMedia('(max-width: 640px)').matches) return;
     if (contactForm.getBoundingClientRect().top <= window.innerHeight) return;
@@ -79,9 +193,16 @@
   }
 
   function setPreferredDate(value, shouldScroll = false) {
+    if (confirmedEventFor(value)) {
+      rejectConfirmedPreferredDate();
+      return;
+    }
+
     const date = dateForKey(value);
     selectedPreferredDate = date ? value : '';
     preferredDate.value = selectedPreferredDate;
+    preferredDate.setCustomValidity('');
+    preferredDate.removeAttribute('aria-invalid');
     if (date) viewDate = new Date(date.getFullYear(), date.getMonth(), 1);
     updateCalendarStatus();
     renderCalendar();
@@ -113,7 +234,8 @@
       const date = new Date(year, month, day);
       const key = keyFor(date);
       const isPast = date < today;
-      const isSelected = key === selectedPreferredDate;
+      const confirmedEvent = confirmedEventFor(key);
+      const isSelected = key === selectedPreferredDate && !confirmedEvent;
       const button = document.createElement('button');
       button.type = 'button';
       button.className = 'calendar-day';
@@ -122,7 +244,12 @@
       button.setAttribute('aria-pressed', String(isSelected));
 
       if (isSelected) button.classList.add('is-selected');
-      if (isPast) {
+      if (confirmedEvent) {
+        button.classList.add('is-confirmed');
+        button.disabled = true;
+        button.title = 'Visita confirmada';
+        button.setAttribute('aria-label', `${formatDate(date)}. Visita confirmada`);
+      } else if (isPast) {
         button.disabled = true;
       } else {
         button.addEventListener('click', () => setPreferredDate(key, true));
@@ -155,6 +282,15 @@
     const form = event.currentTarget;
     if (isSubmitting) return;
     setContactStatus('', '');
+
+    if (confirmedEventFor(preferredDate.value)) {
+      rejectConfirmedPreferredDate();
+      setContactStatus(confirmedDateMessage, 'error');
+      preferredDate.focus();
+      preferredDate.reportValidity();
+      return;
+    }
+
     if (!form.reportValidity()) return;
 
     isSubmitting = true;
@@ -187,6 +323,7 @@
   });
 
   $('#currentYear').textContent = String(new Date().getFullYear());
+  renderUpcomingVisits();
   updateCalendarStatus();
   renderCalendar();
 })();
