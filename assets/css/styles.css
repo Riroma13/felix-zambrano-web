@@ -2156,3 +2156,27 @@ body {
     padding: 1.15rem 1.2rem;
   }
 }
+
+/* Mobile spacing polish */
+@media (max-width: 640px) {
+  .cuentacuentos-intro {
+    gap: 1.5rem;
+  }
+
+  .cuentacuentos-intro .section-heading > p:last-child {
+    margin-bottom: 0;
+  }
+
+  #biografia {
+    margin-bottom: .75rem;
+    padding-bottom: 4.5rem;
+  }
+
+  #cuentacuentos {
+    padding-top: 4.25rem;
+  }
+
+  .whatsapp-float {
+    bottom: 96px;
+  }
+}
