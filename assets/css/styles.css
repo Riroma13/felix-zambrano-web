@@ -635,6 +635,41 @@ h3 {
     margin: 0 auto 3rem
 }
 
+.cuentacuentos-intro {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    gap: clamp(1.5rem, 4vw, 3rem);
+    margin-bottom: 3rem
+}
+
+.cuentacuentos-intro .section-heading {
+    flex: 1 1 0;
+    min-width: 0;
+    max-width: 680px;
+    margin: 0;
+    text-align: left
+}
+
+.neae-visual {
+    flex: 0 1 15rem;
+    width: min(100%, 15rem);
+    max-width: 100%;
+    margin: 0
+}
+
+.neae-visual[hidden] {
+    display: none
+}
+
+.neae-visual img {
+    display: block;
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    object-position: center top
+}
+
 .gallery {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -1434,6 +1469,19 @@ body {
     grid-template-columns: 1fr;
   }
 
+  .cuentacuentos-intro {
+    flex-direction: column;
+  }
+
+  .cuentacuentos-intro .section-heading {
+    flex: none;
+    width: 100%;
+  }
+
+  .neae-visual {
+    align-self: center;
+  }
+
 }
 
 @media (max-width: 640px) {
@@ -1571,7 +1619,7 @@ body {
 .whatsapp-float {
   position: fixed;
   right: 24px;
-  bottom: 24px;
+  bottom: 64px;
   z-index: 9999;
 
   width: 68px;
@@ -1605,7 +1653,7 @@ body {
 @media (max-width: 640px) {
   .whatsapp-float {
     right: 16px;
-    bottom: 16px;
+    bottom: 64px;
     width: 62px;
     height: 62px;
   }
