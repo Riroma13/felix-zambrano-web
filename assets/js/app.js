@@ -322,6 +322,27 @@
     }
   });
 
+  const eventLightbox = $('#eventLightbox');
+  if (eventLightbox && typeof eventLightbox.showModal === 'function') {
+    const lightboxImage = $('#eventLightboxImage');
+    const lightboxCaption = $('#eventLightboxCaption');
+    $$('[data-event-photo]').forEach(link => {
+      link.addEventListener('click', event => {
+        event.preventDefault();
+        lightboxImage.src = link.href;
+        lightboxImage.alt = $('img', link).alt;
+        lightboxCaption.textContent = link.dataset.caption;
+        eventLightbox.showModal();
+      });
+    });
+    $('.event-lightbox__close', eventLightbox).addEventListener('click', () => eventLightbox.close());
+    eventLightbox.addEventListener('click', event => {
+      const bounds = eventLightbox.getBoundingClientRect();
+      if (event.target === eventLightbox && (event.clientX < bounds.left || event.clientX > bounds.right
+        || event.clientY < bounds.top || event.clientY > bounds.bottom)) eventLightbox.close();
+    });
+  }
+
   $('#currentYear').textContent = String(new Date().getFullYear());
   renderUpcomingVisits();
   updateCalendarStatus();

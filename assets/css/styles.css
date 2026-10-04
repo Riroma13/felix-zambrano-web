@@ -2243,3 +2243,67 @@ body {
     gap: 1.25rem;
   }
 }
+
+/* Fotografías del encuentro */
+.event-gallery {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: 180px;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+.event-gallery__item {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1rem;
+  background: var(--blue-dark);
+  color: white;
+}
+.event-gallery__item:first-child { grid-column: span 2; grid-row: span 2; }
+.event-gallery__item:last-child img { object-position: center 25%; }
+.event-gallery__item img { width: 100%; height: 100%; object-fit: cover; transition: transform .25s ease; }
+.event-gallery__item:hover img { transform: scale(1.035); }
+.event-gallery__caption {
+  position: absolute;
+  inset: auto 0 0;
+  padding: 2.5rem 1rem .85rem;
+  background: linear-gradient(transparent, rgba(0,0,0,.8));
+  font-family: "Trebuchet MS", Arial, sans-serif;
+  font-weight: 700;
+  line-height: 1.3;
+}
+.event-gallery__hint { margin: .8rem 0 2.5rem; color: var(--ink-soft); font-size: .9rem; }
+.event-lightbox {
+  width: min(1100px, calc(100% - 2rem));
+  max-height: 92vh;
+  padding: 1rem;
+  border: 0;
+  border-radius: 1rem;
+  background: var(--cream);
+  color: var(--ink);
+}
+.event-lightbox::backdrop { background: rgba(15, 25, 35, .85); }
+.event-lightbox figure { margin: 1rem 0 0; }
+.event-lightbox img { width: 100%; max-height: 72vh; object-fit: contain; }
+.event-lightbox figcaption { padding-top: .75rem; text-align: center; }
+.event-lightbox__close {
+  display: block;
+  margin-left: auto;
+  padding: .6rem 1rem;
+  border: 0;
+  border-radius: .5rem;
+  background: var(--blue-dark);
+  color: white;
+  font: inherit;
+  cursor: pointer;
+}
+@media (max-width: 640px) {
+  .event-gallery { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 150px; gap: .65rem; }
+  .event-gallery__item:first-child { grid-row: span 2; }
+  .event-gallery__item:last-child { grid-column: span 2; }
+  .event-gallery__caption { font-size: .85rem; padding-inline: .7rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .event-gallery__item img { transition: none; }
+  .event-gallery__item:hover img { transform: none; }
+}
