@@ -13,7 +13,7 @@
     { date: "2026-12-08", city: "", type: "Visita confirmada" },
     { date: "2027-04-26", city: "", type: "Visita confirmada" },
     {
-      date: "2027-10-01",
+      date: "2026-10-01",
       city: "Almendralejo",
       type: "Encuentro literario",
       title: "Otoño Literario",
