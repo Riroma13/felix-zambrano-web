@@ -8,6 +8,11 @@
     { date: "2026-10-14", city: "", type: "Visita confirmada" },
     { date: "2026-10-15", city: "", type: "Visita confirmada" },
     { date: "2026-10-16", city: "", type: "Visita confirmada" },
+    {
+      date: "2026-10-21",
+      city: "Almendralejo",
+      type: "Actividad de cuentacuentos en el CEIP Antonio Machado"
+    },
     { date: "2026-12-04", city: "", type: "Visita confirmada" },
     { date: "2026-12-07", city: "", type: "Visita confirmada" },
     { date: "2026-12-08", city: "", type: "Visita confirmada" },
