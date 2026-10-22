@@ -4,6 +4,17 @@
   const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
   const weekdays = ['L', 'M', 'X', 'J', 'V', 'S', 'D'];
   const confirmedEvents = [
+    {
+      date: "2026-10-29",
+      city: "Aceuchal",
+      type: "Taller de cuentacuentos",
+      title: "Fábulas de Animales Inconformistas",
+      description: "Una sesión de fábulas para el alumnado de Infantil de 5 años del CEIP Nuestra Señora de la Soledad.",
+      venue: "CEIP Nuestra Señora de la Soledad",
+      time: "10:00 h",
+      poster: "assets/images/taller-aceuchal-2026-10-29.webp",
+      featured: true
+    },
     { date: "2026-10-13", city: "", type: "Visita confirmada" },
     { date: "2026-10-14", city: "", type: "Visita confirmada" },
     { date: "2026-10-15", city: "", type: "Visita confirmada" },
@@ -104,9 +115,9 @@
 
   function renderUpcomingVisits() {
     const futureEvents = confirmedEvents
-      .filter(isValidConfirmedEvent)
+      .filter(event => isValidConfirmedEvent(event) && event.city.trim())
       .map(event => ({ event, date: dateForKey(event.date) }))
-      .filter(item => item.date && item.date > today)
+      .filter(item => item.date && item.date >= today)
       .sort((first, second) => first.date - second.date);
 
     upcomingSection.hidden = true;
@@ -117,6 +128,25 @@
       const card = document.createElement('article');
       const isFeatured = event.featured === true;
       card.className = isFeatured ? 'upcoming-card upcoming-card--featured' : 'upcoming-card';
+
+      if (isFeatured && event.poster) {
+        const posterLink = document.createElement('a');
+        posterLink.href = event.poster;
+        posterLink.className = 'upcoming-card__poster';
+        posterLink.dataset.eventPhoto = '';
+        posterLink.dataset.caption = `${event.type} · ${event.city} · ${formatDate(date)}`;
+        posterLink.setAttribute('aria-label', `Ver cartel: ${event.type} en ${event.city}`);
+        const poster = document.createElement('img');
+        poster.src = event.poster;
+        poster.alt = `Cartel del taller de cuentacuentos del 29 de octubre en Aceuchal`;
+        poster.width = 1043;
+        poster.height = 1528;
+        poster.loading = 'lazy';
+        const action = document.createElement('span');
+        action.textContent = 'Ver cartel';
+        posterLink.append(poster, action);
+        card.append(posterLink);
+      }
 
       const dateLabel = document.createElement('time');
       dateLabel.className = 'upcoming-card__date';
@@ -142,6 +172,12 @@
       activity.className = 'upcoming-card__type';
       activity.textContent = event.type.trim();
       card.append(activity);
+      if (event.venue && event.time) {
+        const details = document.createElement('p');
+        details.className = 'upcoming-card__details';
+        details.textContent = `${event.venue} · ${event.time}`;
+        card.append(details);
+      }
 
       if (isFeatured && typeof event.description === 'string' && event.description.trim()) {
         const description = document.createElement('p');
@@ -327,6 +363,8 @@
     }
   });
 
+  renderUpcomingVisits();
+
   const eventLightbox = $('#eventLightbox');
   if (eventLightbox && typeof eventLightbox.showModal === 'function') {
     const lightboxImage = $('#eventLightboxImage');
@@ -349,7 +387,6 @@
   }
 
   $('#currentYear').textContent = String(new Date().getFullYear());
-  renderUpcomingVisits();
   updateCalendarStatus();
   renderCalendar();
 })();
