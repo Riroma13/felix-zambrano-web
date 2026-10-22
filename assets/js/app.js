@@ -363,6 +363,30 @@
     }
   });
 
+  const eventTabs = $$('.event-tabs [role="tab"]');
+  function selectEventTab(tab) {
+    eventTabs.forEach(item => {
+      const selected = item === tab;
+      item.setAttribute('aria-selected', String(selected));
+      item.tabIndex = selected ? 0 : -1;
+      document.getElementById(item.getAttribute('aria-controls')).hidden = !selected;
+    });
+  }
+  eventTabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => selectEventTab(tab));
+    tab.addEventListener('keydown', event => {
+      let next = index;
+      if (event.key === 'ArrowRight') next = (index + 1) % eventTabs.length;
+      else if (event.key === 'ArrowLeft') next = (index - 1 + eventTabs.length) % eventTabs.length;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = eventTabs.length - 1;
+      else return;
+      event.preventDefault();
+      selectEventTab(eventTabs[next]);
+      eventTabs[next].focus();
+    });
+  });
+
   renderUpcomingVisits();
 
   const eventLightbox = $('#eventLightbox');

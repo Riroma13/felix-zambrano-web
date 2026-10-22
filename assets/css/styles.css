@@ -2328,3 +2328,22 @@ body {
 @media (max-width: 640px) {
   .upcoming-card__poster { float: none; display: block; width: min(100%, 260px); margin: 0 auto 1.25rem; }
 }
+
+/* Dated event journal */
+.event-tabs { display: flex; gap: .65rem; overflow-x: auto; margin: 0 0 2rem; padding: .3rem .2rem .75rem; }
+.event-tabs [role="tab"] { flex-shrink: 0; border: 1px solid var(--blue-dark); border-radius: 2rem; background: transparent; color: var(--blue-dark); padding: .8rem 1.2rem; font: inherit; font-weight: 700; cursor: pointer; }
+.event-tabs [aria-selected="true"] { background: var(--blue-dark); color: var(--cream); }
+.event-tabs [aria-selected="false"]:hover { background: var(--cream-2); }
+.event-story [role="tabpanel"][hidden] { display: none; }
+.event-story__day-title { font-size: clamp(1.7rem, 4vw, 2.6rem); margin: .75rem 0 1rem; }
+.event-gallery--school { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.event-gallery--school:empty { display: none; }
+@media (max-width: 640px) {
+  .event-gallery--school { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .event-tabs [role="tab"] { font-size: .9rem; padding: .7rem 1rem; }
+}
+
+.event-gallery--school .event-gallery__item:last-child { grid-column: auto; }
+@media (max-width: 640px) {
+  .event-gallery--school .event-gallery__item:last-child { grid-column: 1 / -1; }
+}
